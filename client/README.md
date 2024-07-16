@@ -1,27 +1,34 @@
-# Client
+# SSL
+To work with https, we need to install a ssl
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+0. mkdir ssl
 
-## Development server
+1. In the PowerShell window, run the following command to set the execution policy:
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2.Then, run the following command to download and install Chocolatey
+```
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
 
-## Code scaffolding
+3.Verify installation
+```choco -v```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+4. On this site https://github.com/FiloSottile/mkcert follow instructions to install mkcert
+on windows run this command
+```choco install mkcert```
 
-## Build
+5. Run ```mkcert -install```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+6. ```mkcert localhost```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+7.in angular.json uncer "serve" section add:
+```
+  "options": {
+    "sslCert": "ssl/localhost.pem",
+    "sslKey": "ssl/localhost-key.pem",
+    "ssl": true
+  },
+```
