@@ -2,4 +2,11 @@
 
 <div class="container" style="margin-top: 140px;">
   <h1>{{title}}</h1>
+  <ul>
+    @for (product of products; track product["id"]) {
+    <li class="list-unstyled">
+      {{product.name}}
+    </li>
+    }
+  </ul>
 </div>
