@@ -3,10 +3,12 @@
 <div class="container" style="margin-top: 140px;">
   <h1>{{title}}</h1>
   <ul>
-    @for (product of products; track product["id"]) {
+    @for (product of products().data; track product) {
     <li class="list-unstyled">
       {{product.name}}
     </li>
+    } @empty {
+    <div>No products</div>
     }
   </ul>
 </div>
