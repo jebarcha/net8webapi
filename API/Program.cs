@@ -19,9 +19,9 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+//app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 app.UseStaticFiles();
