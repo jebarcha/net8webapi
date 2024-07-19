@@ -33,9 +33,9 @@
           [pageSize]="shopParams().pageSize" />
 
         <div class="d-flex mt-2">
-          <input type="text" placeholder="Search" class="form-control me-2">
-          <button class="btn btn-outline-primary mx-2">Search</button>
-          <button class="btn btn-outline-success">Reset</button>
+          <input (keyup.enter)="onSearch()" type="text" placeholder="Search" class="form-control me-2" #search>
+          <button class="btn btn-outline-primary mx-2" (click)="onSearch()">Search</button>
+          <button class="btn btn-outline-success" (click)="onReset()">Reset</button>
         </div>
       </div>
       <div class=" row row-cols-3 g-3 mb-4">

@@ -15,13 +15,14 @@ export class ShopService {
   getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
-    const { brandId, typeId, sort, pageNumber, pageSize } = shopParams;
+    const { brandId, typeId, sort, pageNumber, pageSize, search } = shopParams;
 
     if (brandId > 0) params = params.append('brandId', shopParams.brandId);
     if (shopParams.typeId > 0) params = params.append('typeId', typeId);
     params = params.append('sort', sort);
     params = params.append('pageIndex', pageNumber);
     params = params.append('pageSize', pageSize);
+    if (search) params = params.append('search', search);
 
     return this.http.get<Pagination<Product[]>>(`${this.baseUrl}products`, {
       params,

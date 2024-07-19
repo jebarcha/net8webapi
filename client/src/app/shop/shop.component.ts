@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ShopService } from './shop.service';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { Brand, Product, ShopParams, Type } from '@shared/models';
@@ -14,7 +21,7 @@ import { PagerComponent } from '@shared/pager/pager.component';
 })
 export class ShopComponent implements OnInit {
   private shopService = inject(ShopService);
-
+  @ViewChild('search') searchTerm?: ElementRef;
   products = signal<Product[]>([]);
   brands = signal<Brand[]>([]);
   types = signal<Type[]>([]);
@@ -61,13 +68,12 @@ export class ShopComponent implements OnInit {
   }
 
   onBrandSelected(brandId: number) {
-    //this.shopParams.set({...this.shopParams, brandId: branId});
-    this.shopParams.update((x) => ({ ...x, brandId }));
+    this.shopParams.update((x) => ({ ...x, brandId: brandId, pageNumber: 1 }));
     this.getProducts();
   }
 
   onTypeSelected(typeId: number) {
-    this.shopParams.update((x) => ({ ...x, typeId }));
+    this.shopParams.update((x) => ({ ...x, typeId: typeId, pageNumber: 1 }));
     this.getProducts();
   }
 
@@ -81,5 +87,20 @@ export class ShopComponent implements OnInit {
       this.shopParams().pageNumber = event;
       this.getProducts();
     }
+  }
+
+  onSearch() {
+    this.shopParams.update((x) => ({
+      ...x,
+      search: this.searchTerm?.nativeElement.value,
+      pageNumber: 1,
+    }));
+    this.getProducts();
+  }
+
+  onReset() {
+    if (this.searchTerm) this.searchTerm.nativeElement.value = '';
+    this.shopParams.set(new ShopParams());
+    this.getProducts();
   }
 }
