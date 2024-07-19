@@ -11,7 +11,7 @@
       <h5 class="text-warning ms-3">Brands</h5>
       <ul class="list-group my-3">
         @for (brand of brands(); track brand.id) {
-        <li class="list-group-item" [class.active]="brand.id===brandIdSelected()" [value]="brand.id"
+        <li class="list-group-item" [class.active]="brand.id===shopParams().brandId" [value]="brand.id"
           (click)="onBrandSelected(brand.id)">
           {{brand.name}}
         </li>
@@ -20,7 +20,7 @@
       <h5 class="text-warning ms-3">Types</h5>
       <ul class="list-group my-3">
         @for (type of types(); track type.id) {
-        <li class="list-group-item" [class.active]="type.id===typeIdSelected()" [value]="type.id"
+        <li class="list-group-item" [class.active]="type.id===shopParams().typeId" [value]="type.id"
           (click)="onTypeSelected(type.id)">{{type.name}}</li>
         }
       </ul>
@@ -28,30 +28,28 @@
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span>Showing <strong>10</strong> of <strong>18</strong> Results</span>
-        </header>
+
+        <paging-header [totalCount]="shopParams().totalCount" [pageNumber]="shopParams().pageNumber"
+          [pageSize]="shopParams().pageSize" />
+
         <div class="d-flex mt-2">
           <input type="text" placeholder="Search" class="form-control me-2">
           <button class="btn btn-outline-primary mx-2">Search</button>
           <button class="btn btn-outline-success">Reset</button>
         </div>
       </div>
-      <div class=" row row-cols-3 g-3">
+      <div class=" row row-cols-3 g-3 mb-4">
         @for (product of products(); track product.id) {
         <product-item [product]="product" />
         }
       </div>
+
+
+      <div class="d-flex justify-content-center">
+        <pager [totalCount]="shopParams().totalCount" [pageSize]="shopParams().pageSize"
+          (pageChanged)="onPageChanged($event)" />
+      </div>
+
     </section>
   </div>
 </div>
-
-<!-- <ul>
-  @for (product of products(); track product) {
-  <li class="list-unstyled">
-    {{product.name}}
-  </li>
-  } @empty {
-  <div>No products</div>
-  }
-</ul> -->

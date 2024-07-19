@@ -1,0 +1,10 @@
+@if (totalCount() && pageNumber() && pageSize()) {
+<header>
+  @if (totalCount() === 0) {
+  <span>There are <strong>0</strong> results for this filter</span>
+  } @else {
+  <span>Showing
+    <strong>{{headerLabel()}}</strong> of <strong>{{totalCount()}}</strong> Results</span>
+  }
+</header>
+}
