@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { TestErrorComponent } from './core/test-error/test-error.component';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,13 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () =>
       import('./home/home.component').then((m) => HomeComponent),
+  },
+  {
+    path: 'test-error',
+    loadComponent: () =>
+      import('./core/test-error/test-error.component').then(
+        (m) => TestErrorComponent
+      ),
   },
   {
     path: 'shop',
