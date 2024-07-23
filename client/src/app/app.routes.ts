@@ -5,15 +5,16 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full',
+  // },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
     loadComponent: () =>
       import('./home/home.component').then((m) => HomeComponent),
+    data: { breadcrumb: 'Home' },
   },
   {
     path: 'test-error',
@@ -40,11 +41,11 @@ export const routes: Routes = [
     path: 'shop',
     loadChildren: () => import('./shop/shop.routes'),
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 // export const routes: Routes = [

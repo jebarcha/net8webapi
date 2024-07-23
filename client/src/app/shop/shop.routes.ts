@@ -12,5 +12,6 @@ export default [
       import('./product-details/product-details.component').then(
         (m) => m.ProductDetailsComponent
       ),
+    data: { breadcrumb: { alias: 'productDetails' } },
   },
 ] as Routes;
