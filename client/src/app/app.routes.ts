@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TestErrorComponent } from './core/test-error/test-error.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
+import { ServerErrorComponent } from './core/server-error/server-error.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +20,20 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./core/test-error/test-error.component').then(
         (m) => TestErrorComponent
+      ),
+  },
+  {
+    path: 'not-found',
+    loadComponent: () =>
+      import('./core/not-found/not-found.component').then(
+        (m) => NotFoundComponent
+      ),
+  },
+  {
+    path: 'server-error',
+    loadComponent: () =>
+      import('./core/server-error/server-error.component').then(
+        (m) => ServerErrorComponent
       ),
   },
   {

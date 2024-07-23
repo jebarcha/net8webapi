@@ -13,6 +13,7 @@ export class TestErrorComponent {
   private http = inject(HttpClient);
 
   baseUrl = environment.apiUrl;
+  validationErrors: string[] = [];
 
   get404Error() {
     this.http.get(`${this.baseUrl}products/42`).subscribe({
@@ -38,7 +39,10 @@ export class TestErrorComponent {
   get400ValidationError() {
     this.http.get(`${this.baseUrl}products/fortytwo`).subscribe({
       next: (response) => console.log(response),
-      error: (error) => console.log(error),
+      error: (error) => {
+        console.log(error);
+        this.validationErrors = error.errors;
+      },
     });
   }
 }
