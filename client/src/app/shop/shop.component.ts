@@ -11,11 +11,17 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { Brand, Product, ShopParams, Type } from '@shared/models';
 import { PagingHeaderComponent } from '@shared/paging-header/paging-header.component';
 import { PagerComponent } from '@shared/pager/pager.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [ProductItemComponent, PagingHeaderComponent, PagerComponent],
+  imports: [
+    CommonModule,
+    ProductItemComponent,
+    PagingHeaderComponent,
+    PagerComponent,
+  ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
 })

@@ -19,6 +19,10 @@ export class ProductDetailsComponent implements OnInit {
 
   product?: Product;
 
+  constructor() {
+    this.bcService.set('@productDetails', ' ');
+  }
+
   ngOnInit(): void {
     this.loadProduct();
   }

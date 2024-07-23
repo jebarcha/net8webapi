@@ -12,6 +12,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     provideHttpClient(withInterceptorsFromDi()),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
     provideToastr({
       //timeOut: 10000,
       positionClass: 'toast-bottom-right',
