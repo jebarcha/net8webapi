@@ -1,4 +1,8 @@
-import { HttpInterceptorFn, HttpEvent } from '@angular/common/http';
+import {
+  HttpInterceptorFn,
+  HttpEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { inject } from '@angular/core';
@@ -13,31 +17,41 @@ export const errorInterceptor: HttpInterceptorFn = (
   const toastr = inject(ToastrService);
 
   return next(req).pipe(
-    catchError((error) => {
-      switch (error.status) {
+    catchError((err: HttpErrorResponse) => {
+      switch (err.status) {
         case 400:
-          if (error.error.errors) {
-            throw error.error;
+          // if (err.error.errors) {
+          //   throw err.error;
+          // }
+          // console.log('comes here to this point ??');
+          // toastr.error(err.error.message, err.status);
+          if (err.error.errors) {
+            const modelStateErrors = [];
+            for (const key in err.error.errors) {
+              if (err.error.errors[key]) {
+                modelStateErrors.push(err.error.errors[key]);
+              }
+            }
+            throw modelStateErrors.flat();
+          } else {
+            toastr.error(err.error.title || err.error);
           }
-          console.log('comes here to this point ??');
-          toastr.error(error.error.message, error.status);
-
           break;
         case 401:
-          toastr.error(error.error.message, error.status);
+          toastr.error(err.error.title || err.error);
           break;
         case 404:
           router.navigate(['/not-found']);
           break;
         case 500:
           const navigationExtras: NavigationExtras = {
-            state: { error: error.error },
+            state: { error: err.error },
           };
           //->another way use navigateByUrl instead of router.navigate(['/server-error']);
           router.navigateByUrl('/server-error', navigationExtras);
           break;
       }
-      return throwError(() => new Error(error));
+      return throwError(() => err);
     })
   );
 };
