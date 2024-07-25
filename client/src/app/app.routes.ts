@@ -42,6 +42,14 @@ export const routes: Routes = [
     loadChildren: () => import('./shop/shop.routes'),
   },
   {
+    path: 'basket',
+    loadChildren: () => import('./basket/basket.routes'),
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./checkout/checkout.routes'),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

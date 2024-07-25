@@ -4,6 +4,7 @@ import { NavBarComponent } from './core/nav-bar/nav-bar.component';
 import { ShopComponent } from './shop/shop.component';
 import { SectionHeaderComponent } from './core/section-header/section-header.component';
 import { NgxSpinnerComponent } from 'ngx-spinner';
+import { BasketService } from './basket/basket.service';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +20,10 @@ import { NgxSpinnerComponent } from 'ngx-spinner';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {}
+  private basketService = inject(BasketService);
+
+  ngOnInit(): void {
+    const basketId = localStorage.getItem('basket_id');
+    if (basketId) this.basketService.getBasket(basketId);
+  }
 }
