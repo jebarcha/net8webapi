@@ -1,5 +1,6 @@
 <div class="container mt-5">
-  @let basket = basketService.basketSource$ | async;
+  <!-- @let basket = basketService.basketSource$ | async; -->
+  @let basket = basketService.basketSignal();
   @if (basket) {
   <!-- <ng-container> -->
   <div class="container">

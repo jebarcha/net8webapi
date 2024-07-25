@@ -6,7 +6,8 @@
   <p class="fst-italic mb-4">
     Shipping costs will be calculated based on choices made during checkout
   </p>
-  @let totals = basketService.basketTotalSource$ | async;
+  <!-- @let totals = basketService.basketTotalSource$ | async; -->
+  @let totals = basketService.basketTotalSourceSignal();
   @if (totals) {
   <ul class="list-unstyled mb-4">
     <li class="d-flex justify-content-between py-3 border-bottom">

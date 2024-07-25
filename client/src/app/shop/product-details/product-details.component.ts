@@ -39,15 +39,23 @@ export class ProductDetailsComponent implements OnInit {
         next: (product) => {
           this.product = product;
           this.bcService.set('@productDetails', product.name);
-          this.basketService.basketSource$.pipe(take(1)).subscribe({
-            next: (basket) => {
-              const item = basket?.items.find((x) => x.id === +id);
-              if (item) {
-                this.quantity = item.quantity;
-                this.quantityInBasket = item.quantity;
-              }
-            },
-          });
+
+          // this.basketService.basketSource$.pipe(take(1)).subscribe({
+          //   next: (basket) => {
+          //     const item = basket?.items.find((x) => x.id === +id);
+          //     if (item) {
+          //       this.quantity = item.quantity;
+          //       this.quantityInBasket = item.quantity;
+          //     }
+          //   },
+          // });
+          const item = this.basketService
+            .basketSignal()
+            ?.items.find((x) => x.id === +id);
+          if (item) {
+            this.quantity = item.quantity;
+            this.quantityInBasket = item.quantity;
+          }
         },
         error: (error) => console.log(error),
       });

@@ -10,7 +10,8 @@
   <div class="d-flex align-items-center">
     <a routerLink="/basket" class="position-relative">
       <i class="fa fa-shopping-cart fa-2x me-5 text-dark"></i>
-      @let basket = basketService.basketSource$ | async;
+      <!-- @let basket = basketService.basketSource$ | async; -->
+      @let basket = basketService.basketSignal();
       @if (basket) {
       <div class="cart-no">
         {{getCount(basket.items)}}
