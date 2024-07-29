@@ -28,7 +28,7 @@ public class AccountController : BaseApiController
         _mapper = mapper;
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
