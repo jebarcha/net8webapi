@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BasketService } from '../../basket/basket.service';
 import { CommonModule } from '@angular/common';
-import { BasketItem } from '@shared/models/basket';
+import { BasketItem } from '@shared/models';
 
 @Component({
   selector: 'app-nav-bar',

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { CommonModule } from '@angular/common';
 import { BasketService } from '../../basket/basket.service';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',

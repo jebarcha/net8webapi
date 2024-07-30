@@ -18,13 +18,9 @@ export const errorInterceptor: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
+      //console.log(err.status);
       switch (err.status) {
         case 400:
-          // if (err.error.errors) {
-          //   throw err.error;
-          // }
-          // console.log('comes here to this point ??');
-          // toastr.error(err.error.message, err.status);
           if (err.error.errors) {
             const modelStateErrors = [];
             for (const key in err.error.errors) {
@@ -34,11 +30,11 @@ export const errorInterceptor: HttpInterceptorFn = (
             }
             throw modelStateErrors.flat();
           } else {
-            toastr.error(err.error.title || err.error);
+            toastr.error(err.error.message || err.error);
           }
           break;
         case 401:
-          toastr.error(err.error.title || err.error);
+          toastr.error(err.error.message || err.error);
           break;
         case 404:
           router.navigate(['/not-found']);
