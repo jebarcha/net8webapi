@@ -1,0 +1,12 @@
+<div class="form-floating mb-3">
+  <input type={{type()}} [formControl]="control" class="form-control" placeholder="{{label()}}"
+    [ngClass]="(control.touched) ? control.invalid ? 'is-invalid' : 'is-valid' : null">
+
+  <label for="floatingInput">{{label()}}</label>
+  @if (control.errors?.['required']) {
+  <div class="invalid-feedback">Please enter your {{label()}}</div>
+  }
+  @if (control.errors?.['email']) {
+  <div class="invalid-feedback">Invalid email address</div>
+  }
+</div>

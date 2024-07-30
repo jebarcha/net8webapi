@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../environments/environment';
 import { User } from '@shared/models';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 
@@ -10,12 +10,23 @@ import { map } from 'rxjs';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  private currentUserSourceSignal = signal<User | null>(null);
+  currentUserSourceSignal = signal<User | null>(null);
 
   private http = inject(HttpClient);
   private router = inject(Router);
 
   constructor() {}
+
+  loadCurrentUser(token: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get<User>(`${this.baseUrl}account`, { headers }).pipe(
+      map((user) => {
+        localStorage.setItem('token', user.token);
+        this.currentUserSourceSignal.set(user);
+      })
+    );
+  }
 
   login(values: any) {
     return this.http.post<User>(`${this.baseUrl}account/login`, values).pipe(
