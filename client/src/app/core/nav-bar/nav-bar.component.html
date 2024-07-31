@@ -18,7 +18,7 @@
       </div>
       }
     </a>
-    @let user = accountService.currentUserSourceSignal();
+    @let user = accountService.currentUserSignal();
     @if (user === null) {
     <ng-container>
       <a routerLink="/account/login" class="btn btn-outline-secondary me-2">Login</a>

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AccountService } from '../account.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
 
@@ -20,6 +20,14 @@ import { TextInputComponent } from '@shared/components/text-input/text-input.com
 export class LoginComponent {
   private accountService = inject(AccountService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+
+  returnUrl: string = '';
+
+  constructor() {
+    this.returnUrl =
+      this.activatedRoute.snapshot.queryParams['returnUrl'] || '/shop';
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -28,7 +36,7 @@ export class LoginComponent {
 
   onSubmit() {
     this.accountService.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigateByUrl('/shop'),
+      next: () => this.router.navigateByUrl(this.returnUrl),
     });
   }
 }

@@ -5,7 +5,10 @@ import { BusyService } from '../services/busy.service';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const busyService = inject(BusyService);
-  busyService.busy();
+
+  if (!req.url.includes('emailExists')) {
+    busyService.busy();
+  }
   return next(req).pipe(
     delay(1000),
     finalize(() => busyService.idle())

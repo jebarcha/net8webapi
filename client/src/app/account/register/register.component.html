@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center mt-5">
+  <div class="col-3">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="text-center-mb-4">
+        <h1 class="mb-3">Sign up</h1>
+
+        <text-input [formControl]="registerForm.controls['displayName']" [label]="'Display Name'" />
+        <text-input [formControl]="registerForm.controls['email']" [label]="'Email address'" />
+        <text-input [formControl]="registerForm.controls['password']" type="password" [label]="'Password'" />
+
+        @if (errors()) {
+        <ul class="text-danger list-unstyled">
+          @for (error of errors(); track error) {
+          {{error}}
+          }
+        </ul>
+        }
+
+        <div class="d-grid">
+          <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Sign in</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
