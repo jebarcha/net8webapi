@@ -6,6 +6,7 @@ import { SectionHeaderComponent } from './core/section-header/section-header.com
 import { NgxSpinnerComponent } from 'ngx-spinner';
 import { BasketService } from './basket/basket.service';
 import { AccountService } from './account/account.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,10 @@ export class AppComponent implements OnInit {
 
   loadCurrentUser() {
     const token = localStorage.getItem('token');
-    this.accountService.loadCurrentUser(token).subscribe();
+    this.accountService.loadCurrentUser(token).subscribe({
+      next: () => {
+        //console.log(this.accountService.currentUserSignal());
+      },
+    });
   }
 }

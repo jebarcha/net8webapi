@@ -6,6 +6,13 @@ export default [
     loadComponent: () =>
       import('./checkout.component').then((m) => m.CheckoutComponent),
   },
+  {
+    path: 'success',
+    loadComponent: () =>
+      import('./checkout-success/checkout-success.component').then(
+        (m) => m.CheckoutSuccessComponent
+      ),
+  },
   // {
   //   path: ':id',
   //   loadComponent: () =>

@@ -12,7 +12,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 
-[Authorize]
+// [Authorize]
 public class OrdersController : BaseApiController
 {
     private readonly IOrderService _orderService;
@@ -29,7 +29,7 @@ public class OrdersController : BaseApiController
     {
         var email = HttpContext.User.RetrieveEmailFromPrincipal();
         var address = _mapper.Map<AddressDto, Address>(orderDto.ShipToAddress);
-        var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId, 
+        var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId,
             orderDto.BasketId, address);
 
         if (order == null) return BadRequest(new ApiResponse(400, "Problem creating order"));

@@ -13,6 +13,7 @@ import { provideToastr } from 'ngx-toastr';
 
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +21,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     provideHttpClient(withInterceptorsFromDi()),
-    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
+    provideHttpClient(
+      withInterceptors([errorInterceptor, loadingInterceptor, jwtInterceptor])
+    ),
     provideToastr({
       //timeOut: 10000,
       positionClass: 'toast-bottom-right',
